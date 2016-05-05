@@ -17,7 +17,11 @@ import java.util.concurrent.Executors;
  * Created by Xiong on 2016/5/4.
  */
 public class PhotoService extends Service {
+
+    //自定义binder
     private final IBinder mBinder = new MyBinder();
+
+    //上传的监听事件
     private UploadListener mListener;
 
     @Nullable
@@ -41,7 +45,7 @@ public class PhotoService extends Service {
         void onFinish(int position);
     }
 
-    public class MyBinder extends Binder {
+    public  class MyBinder extends Binder {
         public PhotoService getService() {
             return PhotoService.this;
         }
@@ -68,6 +72,7 @@ public class PhotoService extends Service {
                     if (mListener != null) {
                         mListener.onUpload(info.position, info.progress);
                     }
+
             }
             mListener.onFinish(info.position);
 //            info.progress += Math.random() * 20
